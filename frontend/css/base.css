@@ -1,0 +1,23 @@
+/* =========================
+   RESET / BASE
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  background: #f4f6f8;
+  color: #111;
+}
+
+/* =========================
+   APP CONTAINER (global)
+========================= */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

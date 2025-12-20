@@ -1,0 +1,134 @@
+/* =========================
+   HEADER
+========================= */
+.header {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #5b2cff, #7b5cff);
+  color: #fff;
+  padding: 16px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.header h1 {
+  flex: 1;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.btn-voltar {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 6px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* =========================
+   CONTEÚDO / LISTA DE CAIXINHAS
+========================= */
+.lista-caixinhas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.lista-caixinhas .card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px; /* Espaço entre nome, valor e botão */
+}
+
+.lista-caixinhas .card .nome {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.lista-caixinhas .card .valor {
+  font-weight: bold;
+  color: #5b2cff;
+}
+
+/* Mensagem quando não há caixinhas */
+.lista-caixinhas .empty {
+  text-align: center;
+  color: #888;
+  padding: 20px;
+  font-size: 0.95rem;
+}
+
+/* =========================
+   BOTÃO NOVA CAIXINHA
+========================= */
+.btn-nova-caixinha {
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  background: #5b2cff;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+/* =========================
+   MENU INFERIOR (MOBILE)
+========================= */
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  background: #fff;
+  border-top: 1px solid #ddd;
+}
+
+.nav-item {
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.nav-item.active {
+  color: #5b2cff;
+  font-weight: bold;
+}
+
+/* =========================
+   DESKTOP
+========================= */
+@media (min-width: 768px) {
+  .content {
+    max-width: 600px;
+    margin: auto;
+  }
+
+  .btn-voltar {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+  }
+
+  .bottom-nav {
+    display: none;
+  }
+}
+
+
+
+
+.card button i.fa-trash {
+  color: red;
+  margin-left: 12px;
+}

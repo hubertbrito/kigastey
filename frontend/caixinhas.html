@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Caixinhas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/caixinhas.css">
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- HEADER -->
+    <header class="header">
+      <button class="btn-voltar">←</button>
+      <h1>Caixinhas</h1>
+    </header>
+
+    <!-- CONTEÚDO -->
+    <main class="content">
+
+      <!-- Lista de caixinhas -->
+      <section class="lista-caixinhas" id="listaCaixinhas">
+        <div class="empty">
+          Nenhuma caixinha registrada
+        </div>
+      </section>
+
+      <!-- Botão criar nova caixinha -->
+      <button class="btn-nova-caixinha">
+        + Nova caixinha
+      </button>
+
+    </main>
+
+    <!-- MENU INFERIOR (MOBILE) -->
+    <nav class="bottom-nav">
+      <button class="nav-item" onclick="window.location.href='index.html'">Home</button>
+      <button class="nav-item active">Caixinhas</button>
+    </nav>
+
+  </div>
+
+  <!-- JS -->
+  <script src="js/caixinhas.js" defer></script>
+</body>
+</html>

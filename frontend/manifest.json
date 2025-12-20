@@ -1,18 +1,19 @@
 {
   "name": "Ki-Gastey-controle",
   "short_name": "Ki-Gastey",
-  "start_url": "./index.html",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#f4f6f8",
   "theme_color": "#5b2cff",
   "icons": [
     {
-      "src": "icons/icon-192x192.png",
+      "src": "/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icons/icon-512x512.png",
+      "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }

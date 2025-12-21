@@ -272,3 +272,28 @@ body {
     gap: 12px;
   }
 }
+
+/* =========================
+   ENTRADA POR TEXTO
+========================= */
+.texto-section {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+#inputTextoGasto {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+#btnRegistrarTexto {
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: #ddd;
+  cursor: pointer;
+}

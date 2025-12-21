@@ -25,6 +25,9 @@ const btnExcluirTodos = document.getElementById('btnExcluirTodos');
 
 const btnCaixinhasDesktop = document.getElementById('btnCaixinhasDesktop');
 const btnCaixinhasMobile = document.getElementById('btnCaixinhasMobile');
+const inputTextoGasto = document.getElementById('inputTextoGasto');
+const btnRegistrarTexto = document.getElementById('btnRegistrarTexto');
+
 
 // =========================
 // ESTADO
@@ -286,7 +289,29 @@ if (btnCaixinhasDesktop) btnCaixinhasDesktop.onclick = () => window.location.hre
 if (btnCaixinhasMobile) btnCaixinhasMobile.onclick = () => window.location.href = 'caixinhas.html';
 
 // =========================
+// REGISTRO POR TEXTO
+// =========================
+btnRegistrarTexto.addEventListener('click', () => {
+  const texto = inputTextoGasto.value.trim().toLowerCase();
+
+  if (!texto) return;
+
+  const resultado = interpretarGasto(texto);
+
+  if (!resultado) {
+    output.textContent = 'Use algo como: "almoço 25" ou "mercado 40,90"';
+    return;
+  }
+
+  registrarGasto(resultado);
+  inputTextoGasto.value = '';
+});
+
+
+// =========================
 // INIT RENDERIZAÇÃO
 // =========================
 renderizarGastos();
 atualizarTudo();
+
+

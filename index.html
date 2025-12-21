@@ -11,33 +11,22 @@
 </head>
 
 <body>
-  <!-- APP CONTAINER -->
   <div class="app">
 
-    <!-- =========================
-         HEADER / SALDO
-    ========================== -->
+    <!-- HEADER -->
     <header class="header">
       <div class="saldo-card">
         <span class="saldo-label">Saldo disponível</span>
         <span class="saldo-valor" id="saldoDisponivel">R$ 0,00</span>
-
-        <!-- botão editar saldo -->
-        <button id="btnEditarSaldo" class="btn-editar-saldo">
-          ✏️ Editar saldo
-        </button>
+        <button id="btnEditarSaldo" class="btn-editar-saldo">✏️ Editar saldo</button>
       </div>
 
-      <!-- Botão Caixinhas (desktop) -->
-    <!-- Desktop -->
-<button class="btn-caixinhas-desktop" onclick="location.href='caixinhas.html'">
-  Caixinhas
-</button>
+      <button class="btn-caixinhas-desktop" onclick="location.href='caixinhas.html'">
+        Caixinhas
+      </button>
     </header>
 
-    <!-- =========================
-         PAINEL DE SALDO DETALHADO
-    ========================== -->
+    <!-- SALDO DETALHADO -->
     <section class="saldo-detalhado">
       <div class="linha">
         <span>Saldo inicial</span>
@@ -62,96 +51,71 @@
       </div>
     </section>
 
-    <!-- =========================
-         CONTEÚDO PRINCIPAL
-    ========================== -->
+    <!-- CONTEÚDO -->
     <main class="content">
 
-      <!-- BOTÃO DE VOZ -->
+      <!-- DIGITAÇÃO -->
+      <section class="texto-section">
+        <input
+          type="text"
+          id="inputTextoGasto"
+          placeholder="✍️ Escrever novo gasto (ex: mercado 45,90)"
+        />
+        <button id="btnRegistrarTexto" class="btn-secundario">
+          Registrar gasto
+        </button>
+      </section>
+
+      <!-- VOZ -->
       <section class="voz-section">
         <button id="voiceBtn" class="btn-voz">
-          🎤 Registrar gasto
+          🎤 Registrar gasto por voz
         </button>
         <div id="output" class="output"></div>
       </section>
 
-      <!-- LISTA DE GASTOS -->
+      <!-- LISTA -->
       <section class="lista-section">
         <h2>Últimos gastos</h2>
 
-        <ul id="listaGastos" class="lista-gastos">
-          <!-- itens inseridos via JS -->
-        </ul>
+        <ul id="listaGastos" class="lista-gastos"></ul>
 
-        <!-- AÇÕES -->
         <div class="acoes">
-          <button id="btnExcluirUltimo" class="btn-secundario">
-            Excluir último
-          </button>
-          <button id="btnExcluirTodos" class="btn-perigo">
-            Excluir todos
-          </button>
+          <button id="btnExcluirUltimo" class="btn-secundario">Excluir último</button>
+          <button id="btnExcluirTodos" class="btn-perigo">Excluir todos</button>
         </div>
       </section>
 
     </main>
 
-    <!-- =========================
-         MENU INFERIOR (MOBILE)
-    ========================== -->
+    <!-- NAV MOBILE -->
     <nav class="bottom-nav">
-     
-     <button class="nav-item" onclick="location.href='caixinhas.html'">
-     Caixinhas
-     </button>
-     
+      <button class="nav-item" onclick="location.href='caixinhas.html'">
+        Caixinhas
+      </button>
     </nav>
 
   </div>
 
-  <!-- =========================
-       MODAL SALDO
-  ========================== -->
+  <!-- MODAIS -->
   <div id="modalSaldo" class="modal hidden">
     <div class="modal-content">
       <h2>Saldo</h2>
-
-      <p id="avisoSaldo" class="aviso-saldo">
-        Informe quanto dinheiro você tem disponível.
-      </p>
-
+      <p id="avisoSaldo"></p>
       <input type="text" id="inputSaldo" placeholder="R$ 0,00" />
-
       <button id="btnSalvarSaldo">Confirmar</button>
     </div>
   </div>
 
-  <!-- =========================
-       MODAL ALERTA
-  ========================== -->
   <div id="modalAlerta" class="modal hidden">
     <div class="modal-content alerta">
-      <h2>⚠️ Atenção financeira</h2>
+      <h2>⚠️ Atenção</h2>
       <p id="mensagemAlerta"></p>
-
       <button id="btnFecharAlerta">Entendi</button>
     </div>
   </div>
 
-  <!-- =========================
-       SCRIPTS
-  ========================== -->
   <script src="frontend/js/saldo.js" defer></script>
   <script src="frontend/js/app.js" defer></script>
-  <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('front-end/service-worker.js')
-    .then(() => console.log('SW registrado'))
-    .catch(err => console.error('SW falhou:', err));
-}
-
-</script>
-
-
 </body>
 </html>

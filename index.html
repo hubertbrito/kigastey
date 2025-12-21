@@ -56,15 +56,27 @@
 
       <!-- DIGITAÇÃO -->
       <section class="texto-section">
-        <input
-          type="text"
-          id="inputTextoGasto"
-          placeholder="✍️ Escrever novo gasto (ex: mercado 45,90)"
-        />
-        <button id="btnRegistrarTexto" class="btn-secundario">
-          Registrar gasto
-        </button>
-      </section>
+  <label for="inputTextoGasto" class="texto-label">
+    Escrever novo gasto
+  </label>
+
+  <span class="texto-hint">
+    Exemplo: (uber 45,90)
+  </span>
+
+  <div class="texto-input-group">
+    <input
+      type="text"
+      id="inputTextoGasto"
+      aria-describedby="textoHint"
+    />
+
+    <button id="btnRegistrarTexto" class="btn-secundario">
+      Registrar
+    </button>
+  </div>
+  </section>
+
 
       <!-- VOZ -->
       <section class="voz-section">
@@ -117,5 +129,16 @@
 
   <script src="frontend/js/saldo.js" defer></script>
   <script src="frontend/js/app.js" defer></script>
+  <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/service-worker.js')
+      .then(() => console.log('✅ Service Worker registrado'))
+      .catch(err => console.error('❌ SW erro:', err));
+  });
+}
+</script>
+
 </body>
 </html>

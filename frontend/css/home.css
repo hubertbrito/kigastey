@@ -187,7 +187,7 @@ body {
 }
 
 .btn-secundario {
-  background: #ddd;
+  background: #dddddd;
 }
 
 .btn-perigo {
@@ -278,9 +278,11 @@ body {
 ========================= */
 .texto-section {
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap: 6px;
   margin-bottom: 14px;
 }
+
 
 #inputTextoGasto {
   flex: 1;
@@ -297,3 +299,30 @@ body {
   background: #ddd;
   cursor: pointer;
 }
+
+.texto-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.texto-hint {
+  font-size: 0.75rem;
+  color: #666;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.texto-input-group {
+  display: flex;
+  gap: 8px;
+}
+
+#inputTextoGasto {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+

@@ -3,7 +3,7 @@
 // Versão 1
 // ===============================
 
-const CACHE_NAME = 'kigastey-v1';
+const CACHE_NAME = 'kigastey-v2';
 
 const FILES_TO_CACHE = [
   '/',

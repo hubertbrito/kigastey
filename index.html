@@ -32,15 +32,17 @@
 
       <main class="content-main">
         <section class="texto-section">
-          <label class="texto-label">Escrever novo gasto</label>
+          <label class="texto-label">Escrever novo gasto ex: Mercado 50,00</label>
           <div class="texto-input-group">
-            <input type="text" id="inputTextoGasto" placeholder="Ex: Mercado 50,00" />
+          
+            <input type="text" id="inputTextoGasto"/>
             <button id="btnRegistrarTexto">Registrar</button>
           </div>
         </section>
 
         <section class="voz-section">
           <button id="voiceBtn" class="btn-voz">🎤 Registrar por voz</button>
+           <label class="texto-label">Valor menor que 1 diga ex: zero vírgula cinquenta centavos</label>
           <div id="output" class="output"></div>
         </section>
 

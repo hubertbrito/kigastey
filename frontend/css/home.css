@@ -208,3 +208,10 @@ body {
     order: 2; /* Inputs no centro */
   }
 }
+
+.texto-label {
+  font-size: 0.8rem;
+  margin-bottom: 6px;
+  display: block;
+  color:  #5b2cff;
+}

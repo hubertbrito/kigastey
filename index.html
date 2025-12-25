@@ -6,25 +6,20 @@
   <title>Controle Financeiro</title>
   <link rel="stylesheet" href="frontend/css/home.css">
 </head>
-
 <body>
   <div class="app">
-
     <header class="header">
       <div class="saldo-card">
         <div>
           <span class="saldo-label">Saldo disponível</span>
           <span class="saldo-valor" id="saldoDisponivel">R$ 0,00</span>
         </div>
-        <button class="btn-caixinhas-desktop" onclick="location.href='caixinhas.html'">
-          Caixinhas
-        </button>
+        <button class="btn-caixinhas-desktop" onclick="location.href='caixinhas.html'">Caixinhas</button>
       </div>
       <button id="btnEditarSaldo" class="btn-editar-saldo">✏️ Editar saldo</button>
     </header>
 
     <div class="content-wrapper">
-      
       <aside class="content-side">
         <section class="saldo-detalhado">
           <div class="linha"><span>Saldo inicial</span><strong id="saldoInicial">R$ 0,00</strong></div>
@@ -50,15 +45,18 @@
         </section>
 
         <section class="lista-section">
-          <h2>Últimos gastos</h2>
-          <ul id="listaGastos" class="lista-gastos"></ul>
+          <h2 style="margin-bottom: 10px;">Últimos gastos</h2>
+          
+          <div class="scroll-container">
+            <ul id="listaGastos" class="lista-gastos"></ul>
+          </div>
+
           <div class="acoes">
             <button id="btnExcluirUltimo" class="btn-secundario">Excluir último</button>
             <button id="btnExcluirTodos" class="btn-perigo">Limpar lista</button>
           </div>
         </section>
       </main>
-
     </div>
 
     <nav class="bottom-nav">
@@ -66,13 +64,13 @@
       <button class="nav-item" onclick="location.href='listas.html'">🛒 Criar Lista</button>
       <button class="nav-item" onclick="location.href='caixinhas.html'">Caixinhas</button>
     </nav>
-
   </div>
 
   <div id="modalSaldo" class="modal hidden">
     <div class="modal-content">
       <h2>Saldo Inicial</h2>
-      <p id="avisoSaldo"></p> <input type="text" id="inputSaldo" placeholder="R$ 0,00" />
+      <p id="avisoSaldo"></p>
+      <input type="text" id="inputSaldo" placeholder="R$ 0,00" />
       <button id="btnSalvarSaldo">Confirmar</button>
     </div>
   </div>

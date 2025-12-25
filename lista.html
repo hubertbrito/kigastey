@@ -36,12 +36,8 @@
             Adicionar
           </button>
         </div>
+
       </section>
-
-      <!-- LISTA -->
-      <section class="lista-section">
-        <ul id="listaItens" class="lista-itens"></ul>
-
         <!-- AÇÕES -->
         <div class="acoes">
           <button id="btnExcluirUltimo" class="btn-secundario">
@@ -52,12 +48,23 @@
           </button>
         </div>
 
-        <div class="acoes">
-          <button id="btnIntegrarGastos" class="btn-integrar">
-            Integrar total aos gastos
-          </button>
-        </div>
-      </section>
+      <!-- LISTA -->
+     <section class="lista-section">
+  
+  <div class="scroll-container-lista">
+    <ul id="listaItens" class="lista-itens"></ul>
+  </div>
+
+  <div class="acoes">
+    <button id="btnIntegrarGastos" class="btn-integrar">
+      Integrar total aos gastos
+    </button>
+  </div>
+  <div class="subtotal-painel">
+  <span>Subtotal Carrinho:</span>
+  <strong id="subtotalCompra">R$ 0,00</strong>
+  </div>
+</section>
 
     </main>
   </div>

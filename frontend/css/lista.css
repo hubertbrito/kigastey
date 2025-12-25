@@ -188,3 +188,65 @@
   border: 1px solid #ccc;
   margin-bottom: 16px;
 }
+
+/* =========================
+   SCROLL DA LISTA DE COMPRAS
+========================= */
+.scroll-container-lista {
+  display: block !important;
+  max-height: 400px !important; /* Altura máxima da sua lista de compras */
+  overflow-y: auto !important;  /* Habilita o scroll vertical */
+  overflow-x: hidden;
+  margin: 16px 0;
+  padding: 4px; /* Espaço para não cortar a sombra dos cards */
+  background: rgba(0,0,0,0.02); /* Fundo sutil para diferenciar a área */
+  border-radius: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ajuste na lista interna para não conflitar */
+.lista-itens {
+  list-style: none;
+  padding: 0;
+  margin: 0; /* Margem agora é controlada pelo container */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Estilização da barra de scroll (opcional, para ficar bonito) */
+.scroll-container-lista::-webkit-scrollbar {
+  width: 6px;
+}
+.scroll-container-lista::-webkit-scrollbar-thumb {
+  background: #5b2cff;
+  border-radius: 10px;
+}
+
+/* =========================
+   PAINEL DE SUBTOTAL
+========================= */
+.subtotal-painel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff6cc; /* Amarelo clarinho para combinar com o item comprado */
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin: 15px 0;
+  border: 2px dashed #ffd54f; /* Borda tracejada para dar estilo de cupom/recibo */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.subtotal-painel span {
+  font-weight: 700;
+  color: #856404;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.subtotal-painel strong {
+  font-size: 1.3rem;
+  color: #5b2cff; /* Roxo padrão do seu app */
+  font-family: 'Courier New', monospace; /* Fonte estilo recibo, opcional */
+}

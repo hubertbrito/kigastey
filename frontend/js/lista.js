@@ -74,13 +74,14 @@ btnAdicionarItem.onclick = () => {
 };
 
 // =========================
-// RENDER
+// RENDER (Substitua esta função)
 // =========================
 function renderizarItens() {
   listaItens.innerHTML = '';
 
   if (!itens.length) {
     listaItens.innerHTML = `<li class="item-card">Nenhum item</li>`;
+    atualizarSubtotal(); // Atualiza para R$ 0,00 se estiver vazio
     return;
   }
 
@@ -120,6 +121,27 @@ function renderizarItens() {
 
     li.append(nome, btnOk, btnComprado, btnExcluir);
     listaItens.appendChild(li);
+  });
+
+  // CHAMADA DA NOVA FUNÇÃO
+  atualizarSubtotal();
+}
+
+// =========================
+// NOVA FUNÇÃO: SUBTOTAL
+// =========================
+function atualizarSubtotal() {
+  const elSubtotal = document.getElementById('subtotalCompra');
+  if (!elSubtotal) return;
+
+  // Soma apenas o que foi marcado como 'comprado' e tem valor
+  const total = itens
+    .filter(i => i.comprado)
+    .reduce((s, i) => s + (i.valor || 0), 0);
+
+  elSubtotal.textContent = total.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
   });
 }
 

@@ -12,7 +12,6 @@ body {
   background: #f4f6fb;
   font-family: system-ui, -apple-system, sans-serif;
   color: #333;
-  line-height: 1.5;
 }
 
 .app {
@@ -42,18 +41,11 @@ body {
   align-items: center;
 }
 
-.saldo-label {
-  font-size: 0.85rem;
-  opacity: 0.9;
-}
-
 .saldo-valor {
   font-size: 1.8rem;
   font-weight: 800;
-  display: block;
 }
 
-/* Botão Caixinhas (Topo Direito) */
 .btn-caixinhas-desktop {
   background: rgba(255, 255, 255, 0.2);
   border: none;
@@ -65,7 +57,6 @@ body {
   cursor: pointer;
 }
 
-/* Botão Editar Saldo (Abaixo) */
 .btn-editar-saldo {
   align-self: flex-start;
   background: rgba(255, 255, 255, 0.2);
@@ -83,24 +74,14 @@ body {
 ========================= */
 .content-wrapper {
   display: flex;
-  flex-direction: column; /* Mobile: Empilhado */
+  flex-direction: column; /* Mobile First */
   padding: 16px;
   gap: 20px;
-  padding-bottom: 100px; /* Espaço para a Nav mobile */
-}
-
-/* Lado Esquerdo (Desktop) / Primeiro (Mobile) */
-.content-side {
-  width: 100%;
-}
-
-/* Centro (Desktop) / Segundo (Mobile) */
-.content-main {
-  width: 100%;
+  padding-bottom: 100px;
 }
 
 /* =========================
-   4. COMPONENTES (SALDO, LISTA, INPUTS)
+   4. COMPONENTES (SALDO E INPUTS)
 ========================= */
 .saldo-detalhado {
   background: #fff;
@@ -116,40 +97,13 @@ body {
   font-size: 0.85rem;
 }
 
-.saldo-detalhado hr {
-  border: none;
-  border-top: 1px solid #eee;
-  margin: 10px 0;
-}
+.positivo { color: #2ecc71 !important; font-weight: bold; }
+.negativo { color: #ff4d4f !important; font-weight: bold; }
 
-.destaque { font-weight: bold; font-size: 0.95rem; }
-.positivo { color: #2ecc71 !important; }
-.negativo { color: #ff4d4f !important; }
+.texto-input-group { display: flex; gap: 8px; margin-top: 8px; }
+#inputTextoGasto { flex: 1; padding: 14px; border-radius: 14px; border: 1px solid #ddd; font-size: 1rem; }
+#btnRegistrarTexto { background: #5b2cff; color: #fff; border: none; padding: 0 15px; border-radius: 12px; font-weight: bold; cursor: pointer; }
 
-/* Entradas de Texto */
-.texto-section { margin-bottom: 15px; }
-.texto-label { font-size: 0.9rem; font-weight: bold; margin-bottom: 8px; display: block; }
-.texto-input-group { display: flex; gap: 8px; }
-
-#inputTextoGasto {
-  flex: 1;
-  padding: 14px;
-  border-radius: 14px;
-  border: 1px solid #ddd;
-  font-size: 1rem;
-}
-
-#btnRegistrarTexto {
-  background: #5b2cff;
-  color: #fff;
-  border: none;
-  padding: 0 15px;
-  border-radius: 12px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-/* Botão de Voz */
 .btn-voz {
   width: 100%;
   padding: 16px;
@@ -158,17 +112,29 @@ body {
   color: #5b2cff;
   border-radius: 16px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin: 15px 0;
   cursor: pointer;
 }
 
-/* Lista de Gastos */
-.lista-gastos {
+/* =========================
+   5. A MÁGICA DO SCROLL (CORRIGIDO)
+========================= */
+.scroll-container {
+  display: block !important;
+  max-height: 300px !important; /* Limite de altura para o scroll */
+  overflow-y: auto !important;  /* Habilita rolagem vertical */
+  overflow-x: hidden;
   background: #fff;
   border-radius: 16px;
+  border: 1px solid #eee;
+  margin-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.lista-gastos {
   list-style: none;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 0;
+  margin: 0;
 }
 
 .lista-gastos li {
@@ -188,56 +154,22 @@ body {
   cursor: pointer;
 }
 
-/* Botões de Exclusão Inferiores */
-.acoes { display: flex; gap: 10px; margin-top: 15px; }
+/* Botões de Exclusão (Sempre fora do scroll) */
+.acoes {
+  display: flex;
+  gap: 10px;
+}
+
 .btn-secundario { flex: 1; background: #eee; border: none; padding: 12px; border-radius: 10px; cursor: pointer; }
 .btn-perigo { flex: 1; background: #ff4d4f; color: #fff; border: none; padding: 12px; border-radius: 10px; cursor: pointer; }
 
 /* =========================
-   5. MODAL (POP-UP)
+   6. MODAL E NAV
 ========================= */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
 .modal.hidden { display: none; }
+.modal-content { background: #fff; padding: 20px; border-radius: 20px; width: 90%; max-width: 320px; text-align: center; }
 
-.modal-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 20px;
-  width: 90%;
-  max-width: 320px;
-  text-align: center;
-}
-
-.modal-content input {
-  width: 100%;
-  padding: 12px;
-  margin: 15px 0;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-}
-
-#btnSalvarSaldo {
-  width: 100%;
-  padding: 12px;
-  background: #5b2cff;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  font-weight: bold;
-}
-
-/* =========================
-   6. NAV MOBILE
-========================= */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -248,40 +180,31 @@ body {
   justify-content: space-around;
   padding: 15px;
   border-top: 1px solid #eee;
-  box-shadow: 0 -4px 10px rgba(0,0,0,0.03);
   z-index: 900;
 }
 
-.nav-item {
-  background: none;
-  border: none;
-  color: #888;
-  font-weight: 600;
-  font-size: 0.8rem;
-  cursor: pointer;
-}
-
+.nav-item { background: none; border: none; color: #888; font-weight: 600; font-size: 0.8rem; cursor: pointer; }
 .nav-item.active { color: #5b2cff; }
 
 /* =========================
-   7. DESKTOP ADAPTADO (MONITORES)
+   7. DESKTOP ADAPTADO (> 1024px)
 ========================= */
 @media (min-width: 1024px) {
   .content-wrapper {
-    flex-direction: row; /* Lado a lado */
+    flex-direction: row; 
     max-width: 1200px;
     margin: 0 auto;
     align-items: flex-start;
   }
 
   .content-side {
-    flex: 0 0 320px; /* Saldo detalhado na esquerda fixa */
-    order: 1; /* Força ser o primeiro da esquerda */
+    flex: 0 0 320px; 
+    order: 1; /* Saldo detalhado na esquerda */
   }
 
   .content-main {
-    flex: 0 0 45%; /* Centro com 45% */
+    flex: 0 0 45%; 
     margin: 0 auto;
-    order: 2; /* Força ser o segundo (centro) */
+    order: 2; /* Inputs no centro */
   }
 }

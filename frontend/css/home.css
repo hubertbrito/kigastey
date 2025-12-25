@@ -1,14 +1,18 @@
 /* =========================
-   RESET
+   1. RESET E BASE
 ========================= */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  margin: 0;
   background: #f4f6fb;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #333;
+  line-height: 1.5;
 }
 
 .app {
@@ -18,20 +22,20 @@ body {
 }
 
 /* =========================
-   HEADER / SALDO
+   2. HEADER (CABEÇALHO 100%)
 ========================= */
 .header {
+  width: 100%;
   background: linear-gradient(135deg, #5b2cff, #7b5cff);
   color: #fff;
-  padding: 16px;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
+  padding: 20px 16px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 15px;
 }
 
-/* Saldo grande (header) */
 .saldo-card {
   display: flex;
   justify-content: space-between;
@@ -39,290 +43,245 @@ body {
 }
 
 .saldo-label {
-  font-size: 0.8rem;
-  opacity: 0.85;
+  font-size: 0.85rem;
+  opacity: 0.9;
 }
 
 .saldo-valor {
-  font-size: 1.9rem;
-  font-weight: bold;
+  font-size: 1.8rem;
+  font-weight: 800;
+  display: block;
 }
 
-/* Botão editar saldo */
-.btn-editar-saldo {
-  background: rgba(255,255,255,0.2);
-  border: none;
-  color: #fff;
-  padding: 6px 12px;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-/* Botão Caixinhas */
+/* Botão Caixinhas (Topo Direito) */
 .btn-caixinhas-desktop {
-  align-self: flex-end;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
   border: none;
   color: #fff;
   padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Botão Editar Saldo (Abaixo) */
+.btn-editar-saldo {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #fff;
+  padding: 10px 18px;
   border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
   cursor: pointer;
 }
 
 /* =========================
-   PAINEL DE SALDO DETALHADO
+   3. LAYOUT RESPONSIVO (WRAPPER)
+========================= */
+.content-wrapper {
+  display: flex;
+  flex-direction: column; /* Mobile: Empilhado */
+  padding: 16px;
+  gap: 20px;
+  padding-bottom: 100px; /* Espaço para a Nav mobile */
+}
+
+/* Lado Esquerdo (Desktop) / Primeiro (Mobile) */
+.content-side {
+  width: 100%;
+}
+
+/* Centro (Desktop) / Segundo (Mobile) */
+.content-main {
+  width: 100%;
+}
+
+/* =========================
+   4. COMPONENTES (SALDO, LISTA, INPUTS)
 ========================= */
 .saldo-detalhado {
   background: #fff;
-  color: #333;
-  border-radius: 14px;
-  padding: 12px;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .saldo-detalhado .linha {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 6px 0;
-  font-size: 0.8rem;
+  padding: 8px 0;
+  font-size: 0.85rem;
 }
 
 .saldo-detalhado hr {
   border: none;
   border-top: 1px solid #eee;
-  margin: 8px 0;
+  margin: 10px 0;
 }
 
-.saldo-detalhado .destaque {
-  font-size: 0.9rem;
-}
+.destaque { font-weight: bold; font-size: 0.95rem; }
+.positivo { color: #2ecc71 !important; }
+.negativo { color: #ff4d4f !important; }
 
-.positivo {
-  color: #2ecc71;
-}
+/* Entradas de Texto */
+.texto-section { margin-bottom: 15px; }
+.texto-label { font-size: 0.9rem; font-weight: bold; margin-bottom: 8px; display: block; }
+.texto-input-group { display: flex; gap: 8px; }
 
-.negativo {
-  color: #ff4d4f;
-}
-
-/* =========================
-   CONTEÚDO PRINCIPAL
-========================= */
-.content {
+#inputTextoGasto {
   flex: 1;
-  padding: 16px;
-}
-
-/* =========================
-   BOTÃO VOZ
-========================= */
-.voz-section {
-  margin-bottom: 14px;
-}
-
-.btn-voz {
-  width: 100%;
   padding: 14px;
+  border-radius: 14px;
+  border: 1px solid #ddd;
   font-size: 1rem;
+}
+
+#btnRegistrarTexto {
   background: #5b2cff;
   color: #fff;
   border: none;
-  border-radius: 14px;
+  padding: 0 15px;
+  border-radius: 12px;
+  font-weight: bold;
   cursor: pointer;
 }
 
-.output {
-  margin-top: 8px;
-  font-size: 0.8rem;
-  color: #444;
-}
-
-/* =========================
-   LISTA DE GASTOS
-========================= */
-.lista-section h2 {
-  margin-bottom: 10px;
-  font-size: 1.05rem;
-}
-
-.lista-gastos {
-  list-style: none;
+/* Botão de Voz */
+.btn-voz {
+  width: 100%;
+  padding: 16px;
   background: #fff;
-  border-radius: 14px;
-  padding: 10px;
-  max-height: 320px;
-  overflow-y: auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,.06);
+  border: 2px solid #5b2cff;
+  color: #5b2cff;
+  border-radius: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* Lista de Gastos */
+.lista-gastos {
+  background: #fff;
+  border-radius: 16px;
+  list-style: none;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .lista-gastos li {
-  padding: 8px;
-  border-bottom: 1px solid #eee;
+  padding: 15px;
+  border-bottom: 1px solid #f9f9f9;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.85rem;
 }
 
-.lista-gastos li:last-child {
-  border-bottom: none;
-}
-
-/* =========================
-   BOTÕES DE AÇÃO
-========================= */
-.acoes {
-  margin-top: 12px;
-  display: flex;
-  gap: 10px;
-}
-
-.btn-secundario,
-.btn-perigo {
-  flex: 1;
-  padding: 10px;
+.btn-deletar-item {
+  background: #ffeded;
   border: none;
-  border-radius: 10px;
+  color: #ff4d4f;
+  padding: 8px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
-.btn-secundario {
-  background: #dddddd;
+/* Botões de Exclusão Inferiores */
+.acoes { display: flex; gap: 10px; margin-top: 15px; }
+.btn-secundario { flex: 1; background: #eee; border: none; padding: 12px; border-radius: 10px; cursor: pointer; }
+.btn-perigo { flex: 1; background: #ff4d4f; color: #fff; border: none; padding: 12px; border-radius: 10px; cursor: pointer; }
+
+/* =========================
+   5. MODAL (POP-UP)
+========================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
-.btn-perigo {
-  background: #ff4d4f;
+.modal.hidden { display: none; }
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 320px;
+  text-align: center;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 12px;
+  margin: 15px 0;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+#btnSalvarSaldo {
+  width: 100%;
+  padding: 12px;
+  background: #5b2cff;
   color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
 }
 
 /* =========================
-   MENU MOBILE
+   6. NAV MOBILE
 ========================= */
 .bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
   display: flex;
   justify-content: space-around;
-  padding: 10px 0;
-  background: #fff;
-  border-top: 1px solid #ddd;
+  padding: 15px;
+  border-top: 1px solid #eee;
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.03);
+  z-index: 900;
 }
 
 .nav-item {
   background: none;
   border: none;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-
-.nav-item.active {
-  color: #5b2cff;
-  font-weight: bold;
-}
-
-/* =========================
-   MODAL
-========================= */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-
-.modal.hidden {
-  display: none;
-}
-
-.modal-content {
-  background: #fff;
-  padding: 20px;
-  width: 90%;
-  max-width: 320px;
-  border-radius: 14px;
-  text-align: center;
-}
-
-/* =========================
-   RESPONSIVO DESKTOP
-========================= */
-@media (min-width: 768px) {
-  .bottom-nav {
-    display: none;
-  }
-
-  .header {
-    align-items: center;
-  }
-
-  .saldo-detalhado {
-    max-width: 420px;
-  }
-
-  .content {
-    max-width: 720px;
-    margin: 12px auto 32px;
-    padding-top: 0;
-  }
-
-  .lista-section {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-}
-
-/* =========================
-   ENTRADA POR TEXTO
-========================= */
-.texto-section {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 14px;
-}
-
-
-#inputTextoGasto {
-  flex: 1;
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  font-size: 0.9rem;
-}
-
-#btnRegistrarTexto {
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  background: #ddd;
-  cursor: pointer;
-}
-
-.texto-label {
-  font-size: 0.85rem;
+  color: #888;
   font-weight: 600;
-  color: #333;
+  font-size: 0.8rem;
+  cursor: pointer;
 }
 
-.texto-hint {
-  font-size: 0.75rem;
-  color: #666;
-  margin-bottom: 6px;
-  display: block;
-}
+.nav-item.active { color: #5b2cff; }
 
-.texto-input-group {
-  display: flex;
-  gap: 8px;
-}
+/* =========================
+   7. DESKTOP ADAPTADO (MONITORES)
+========================= */
+@media (min-width: 1024px) {
+  .content-wrapper {
+    flex-direction: row; /* Lado a lado */
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: flex-start;
+  }
 
-#inputTextoGasto {
-  flex: 1;
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  font-size: 0.9rem;
-}
+  .content-side {
+    flex: 0 0 320px; /* Saldo detalhado na esquerda fixa */
+    order: 1; /* Força ser o primeiro da esquerda */
+  }
 
+  .content-main {
+    flex: 0 0 45%; /* Centro com 45% */
+    margin: 0 auto;
+    order: 2; /* Força ser o segundo (centro) */
+  }
+}

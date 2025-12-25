@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Listas</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/frontend/css/base.css">
+  <link rel="stylesheet" href="/frontend/css/listas.css">
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- HEADER -->
+    <header class="header">
+      <button class="btn-voltar" onclick="location.href='index.html'">←</button>
+      <h1>Listas</h1>
+    </header>
+
+    <!-- CONTEÚDO -->
+    <main class="content">
+
+      <!-- Lista de listas -->
+      <section class="lista-listas" id="listaDeListas">
+        <div class="empty">
+          Nenhuma lista criada
+        </div>
+      </section>
+
+      <!-- Criar nova lista -->
+      <div class="criar-lista">
+        <input
+          type="text"
+          id="inputNomeLista"
+          placeholder="Ex: Mercado"
+        />
+        <button id="btnCriarLista" class="btn-nova-lista">
+          + Nova lista
+        </button>
+      </div>
+
+      <!-- Ações perigosas -->
+      <button id="btnExcluirTodas" class="btn-excluir-todas">
+        Excluir todas as listas
+      </button>
+
+    </main>
+
+    <!-- MENU INFERIOR (MOBILE) -->
+    <nav class="bottom-nav">
+      <button class="nav-item" onclick="location.href='index.html'">Home</button>
+      <button class="nav-item active">Listas</button>
+    </nav>
+
+  </div>
+
+  <script src="/frontend/js/listas.js"></script>
+</body>
+</html>

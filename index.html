@@ -4,141 +4,80 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Controle Financeiro</title>
-
-  <link rel="manifest" href="/manifest.json">
-  <link rel="stylesheet" href="frontend/css/base.css">
   <link rel="stylesheet" href="frontend/css/home.css">
 </head>
 
 <body>
   <div class="app">
 
-    <!-- HEADER -->
     <header class="header">
       <div class="saldo-card">
-        <span class="saldo-label">Saldo disponível</span>
-        <span class="saldo-valor" id="saldoDisponivel">R$ 0,00</span>
-        <button id="btnEditarSaldo" class="btn-editar-saldo">✏️ Editar saldo</button>
+        <div>
+          <span class="saldo-label">Saldo disponível</span>
+          <span class="saldo-valor" id="saldoDisponivel">R$ 0,00</span>
+        </div>
+        <button class="btn-caixinhas-desktop" onclick="location.href='caixinhas.html'">
+          Caixinhas
+        </button>
       </div>
-
-      <button class="btn-caixinhas-desktop" onclick="location.href='caixinhas.html'">
-        Caixinhas
-      </button>
+      <button id="btnEditarSaldo" class="btn-editar-saldo">✏️ Editar saldo</button>
     </header>
 
-    <!-- SALDO DETALHADO -->
-    <section class="saldo-detalhado">
-      <div class="linha">
-        <span>Saldo inicial</span>
-        <strong id="saldoInicial">R$ 0,00</strong>
-      </div>
+    <div class="content-wrapper">
+      
+      <aside class="content-side">
+        <section class="saldo-detalhado">
+          <div class="linha"><span>Saldo inicial</span><strong id="saldoInicial">R$ 0,00</strong></div>
+          <div class="linha"><span>Gastos</span><strong class="negativo" id="totalGastos">R$ 0,00</strong></div>
+          <div class="linha"><span>Reservado</span><strong class="negativo" id="totalCaixinhas">R$ 0,00</strong></div>
+          <hr />
+          <div class="linha destaque"><span>Saldo livre</span><strong id="saldoLivre">R$ 0,00</strong></div>
+        </section>
+      </aside>
 
-      <div class="linha">
-        <span>Gastos</span>
-        <strong class="negativo" id="totalGastos">R$ 0,00</strong>
-      </div>
+      <main class="content-main">
+        <section class="texto-section">
+          <label class="texto-label">Escrever novo gasto</label>
+          <div class="texto-input-group">
+            <input type="text" id="inputTextoGasto" placeholder="Ex: Mercado 50,00" />
+            <button id="btnRegistrarTexto">Registrar</button>
+          </div>
+        </section>
 
-      <div class="linha">
-        <span>Reservado (caixinhas)</span>
-        <strong class="negativo" id="totalCaixinhas">R$ 0,00</strong>
-      </div>
+        <section class="voz-section">
+          <button id="voiceBtn" class="btn-voz">🎤 Registrar por voz</button>
+          <div id="output" class="output"></div>
+        </section>
 
-      <hr />
+        <section class="lista-section">
+          <h2>Últimos gastos</h2>
+          <ul id="listaGastos" class="lista-gastos"></ul>
+          <div class="acoes">
+            <button id="btnExcluirUltimo" class="btn-secundario">Excluir último</button>
+            <button id="btnExcluirTodos" class="btn-perigo">Limpar lista</button>
+          </div>
+        </section>
+      </main>
 
-      <div class="linha destaque">
-        <span>Saldo livre</span>
-        <strong id="saldoLivre">R$ 0,00</strong>
-      </div>
-    </section>
+    </div>
 
-    <!-- CONTEÚDO -->
-    <main class="content">
-
-      <!-- DIGITAÇÃO -->
-      <section class="texto-section">
-  <label for="inputTextoGasto" class="texto-label">
-    Escrever novo gasto
-  </label>
-
-  <span class="texto-hint">
-    Exemplo: (uber 45,90)
-  </span>
-
-  <div class="texto-input-group">
-    <input
-      type="text"
-      id="inputTextoGasto"
-      aria-describedby="textoHint"
-    />
-
-    <button id="btnRegistrarTexto" class="btn-secundario">
-      Registrar
-    </button>
-  </div>
-  </section>
-
-
-      <!-- VOZ -->
-      <section class="voz-section">
-        <button id="voiceBtn" class="btn-voz">
-          🎤 Registrar gasto por voz
-        </button>
-        <div id="output" class="output"></div>
-      </section>
-
-      <!-- LISTA -->
-      <section class="lista-section">
-        <h2>Últimos gastos</h2>
-
-        <ul id="listaGastos" class="lista-gastos"></ul>
-
-        <div class="acoes">
-          <button id="btnExcluirUltimo" class="btn-secundario">Excluir último</button>
-          <button id="btnExcluirTodos" class="btn-perigo">Excluir todos</button>
-        </div>
-      </section>
-
-    </main>
-
-    <!-- NAV MOBILE -->
     <nav class="bottom-nav">
-      <button class="nav-item" onclick="location.href='caixinhas.html'">
-        Caixinhas
-      </button>
+      <button class="nav-item active" onclick="location.href='index.html'">Início</button>
+      <button class="nav-item" onclick="location.href='listas.html'">🛒 Criar Lista</button>
+      <button class="nav-item" onclick="location.href='caixinhas.html'">Caixinhas</button>
     </nav>
 
   </div>
 
-  <!-- MODAIS -->
   <div id="modalSaldo" class="modal hidden">
     <div class="modal-content">
-      <h2>Saldo</h2>
-      <p id="avisoSaldo"></p>
-      <input type="text" id="inputSaldo" placeholder="R$ 0,00" />
+      <h2>Saldo Inicial</h2>
+      <p id="avisoSaldo"></p> <input type="text" id="inputSaldo" placeholder="R$ 0,00" />
       <button id="btnSalvarSaldo">Confirmar</button>
     </div>
   </div>
 
-  <div id="modalAlerta" class="modal hidden">
-    <div class="modal-content alerta">
-      <h2>⚠️ Atenção</h2>
-      <p id="mensagemAlerta"></p>
-      <button id="btnFecharAlerta">Entendi</button>
-    </div>
-  </div>
-
-  <script src="frontend/js/saldo.js" defer></script>
-  <script src="frontend/js/app.js" defer></script>
-  <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker
-      .register('/service-worker.js')
-      .then(() => console.log('✅ Service Worker registrado'))
-      .catch(err => console.error('❌ SW erro:', err));
-  });
-}
-</script>
-
+  <script src="frontend/js/saldo.js"></script>
+  <script src="frontend/js/app.js"></script>
 </body>
 </html>

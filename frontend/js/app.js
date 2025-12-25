@@ -1,193 +1,171 @@
 // =========================
-// INIT
+// APP.JS — VERSÃO COMPLETA E CORRIGIDA
 // =========================
-document.addEventListener('DOMContentLoaded', () => {
-  initSaldo();
-  configurarEdicaoSaldo();
-  renderizarGastos();
-  atualizarTudo();
-});
 
-// =========================
-// ELEMENTOS
-// =========================
-const voiceBtn = document.getElementById('voiceBtn');
-const output = document.getElementById('output');
-const listaGastos = document.getElementById('listaGastos');
-
-const saldoDisplay = document.getElementById('saldoDisponivel');
-const saldoInicialEl = document.getElementById('saldoInicial');
-const totalGastosEl = document.getElementById('totalGastos');
-const totalCaixinhasEl = document.getElementById('totalCaixinhas');
-const saldoLivreEl = document.getElementById('saldoLivre');
-
-const btnExcluirUltimo = document.getElementById('btnExcluirUltimo');
-const btnExcluirTodos = document.getElementById('btnExcluirTodos');
-
-const inputTextoGasto = document.getElementById('inputTextoGasto');
-const btnRegistrarTexto = document.getElementById('btnRegistrarTexto');
-
-// =========================
-// ESTADO
-// =========================
+// ESTADO GLOBAL
 let gastos = JSON.parse(localStorage.getItem('gastos')) || [];
 let saldoTotal = Number(localStorage.getItem('saldoTotal')) || 0;
 
-// 🔒 TRAVAS DE VOZ
-let reconhecimentoAtivo = false;
-let bloqueioRegistro = false;
-
-// =========================
-// SPEECH RECOGNITION
-// =========================
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-let recognition = null;
-
-if (SpeechRecognition) {
-  recognition = new SpeechRecognition();
-  recognition.lang = 'pt-BR';
-  recognition.interimResults = false;
-  recognition.continuous = false;
-
-  voiceBtn.addEventListener('click', () => {
-    if (reconhecimentoAtivo) return;
-
-    bloqueioRegistro = false;
-    reconhecimentoAtivo = true;
-
-    output.textContent = 'Ouvindo... 🎧';
-    recognition.start();
-  });
-
-  recognition.onresult = (event) => {
-    if (bloqueioRegistro) return;
-
-    bloqueioRegistro = true;
-
-    const texto = event.results[0][0].transcript.toLowerCase().trim();
-    const resultado = interpretarGasto(texto);
-
-    if (!resultado) {
-      output.textContent = 'Diga algo como: "arroz 12"';
-      finalizarReconhecimento();
-      return;
-    }
-
-    registrarGasto(resultado);
-    finalizarReconhecimento();
-  };
-
-  recognition.onerror = () => {
-    output.textContent = 'Erro no reconhecimento de voz';
-    finalizarReconhecimento();
-  };
-
-  recognition.onend = () => {
-    reconhecimentoAtivo = false;
-  };
-}
-
-// =========================
-// FINALIZA VOZ (CRÍTICO)
-// =========================
-function finalizarReconhecimento() {
-  try {
-    recognition.stop();
-  } catch (e) {}
-
-  reconhecimentoAtivo = false;
-
-  // cooldown defensivo
-  setTimeout(() => {
-    bloqueioRegistro = false;
-  }, 800);
-}
-
-// =========================
-// INTERPRETAÇÃO
-// =========================
-function interpretarGasto(texto) {
-  const match = texto.match(/(.+?)\s+([\d.,]+)/);
-  if (!match) return null;
-
-  let valor = parseFloat(match[2].replace(/\./g, '').replace(',', '.'));
-  if (isNaN(valor)) return null;
-
-  return {
-    descricao: match[1].trim(),
-    valor
-  };
-}
-
-// =========================
-// REGISTRO DE GASTO
-// =========================
-function registrarGasto({ descricao, valor }) {
-  gastos.push({ descricao, valor, data: new Date().toISOString() });
-  salvar();
-  renderizarGastos();
-  atualizarTudo();
-
-  output.textContent = `Registrado: ${descricao} — ${formatarMoeda(valor)}`;
-}
-
-// =========================
-// REGISTRO POR TEXTO
-// =========================
-btnRegistrarTexto.addEventListener('click', () => {
-  const texto = inputTextoGasto.value.trim().toLowerCase();
-  if (!texto) return;
-
-  const resultado = interpretarGasto(texto);
-  if (!resultado) {
-    output.textContent = 'Use: mercado 45,90';
-    return;
-  }
-
-  registrarGasto(resultado);
-  inputTextoGasto.value = '';
+document.addEventListener('DOMContentLoaded', () => {
+    // Inicializa as funções
+    renderizarGastos();
+    atualizarTudo();
+    configurarVoz(); // Ativa o microfone
 });
 
 // =========================
-// RENDER
+// 1. REGISTRO POR TEXTO (BOTÃO REGISTRAR)
+// =========================
+const btnRegistrarTexto = document.getElementById('btnRegistrarTexto');
+const inputTextoGasto = document.getElementById('inputTextoGasto');
+
+if (btnRegistrarTexto) {
+    btnRegistrarTexto.onclick = () => {
+        const texto = inputTextoGasto.value.trim().toLowerCase();
+        if (!texto) return;
+
+        const resultado = interpretarGasto(texto);
+        if (!resultado) {
+            alert('Use o formato: Uber 20 ou Mercado 45,90');
+            return;
+        }
+
+        registrarGasto(resultado);
+        inputTextoGasto.value = '';
+    };
+}
+
+// =========================
+// 2. REGISTRO POR VOZ (MICROFONE)
+// =========================
+function configurarVoz() {
+    const voiceBtn = document.getElementById('voiceBtn');
+    const output = document.getElementById('output');
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition || !voiceBtn) return;
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'pt-BR';
+
+    voiceBtn.onclick = () => {
+        output.textContent = 'Ouvindo... 🎧';
+        recognition.start();
+    };
+
+    recognition.onresult = (event) => {
+        const texto = event.results[0][0].transcript.toLowerCase().trim();
+        const resultado = interpretarGasto(texto);
+
+        if (resultado) {
+            registrarGasto(resultado);
+            output.textContent = `Registrado: ${resultado.descricao}`;
+        } else {
+            output.textContent = 'Não entendi. Diga: "Café 5 reais"';
+        }
+    };
+}
+
+// =========================
+// 3. INTERPRETAÇÃO E REGISTRO
+// =========================
+function interpretarGasto(texto) {
+    const match = texto.match(/(.+?)\s+([\d.,]+)/);
+    if (!match) return null;
+
+    let valor = parseFloat(match[2].replace(/\./g, '').replace(',', '.'));
+    if (isNaN(valor)) return null;
+
+    return { descricao: match[1].trim(), valor };
+}
+
+function registrarGasto(gastoObj) {
+    gastos.push({ ...gastoObj, data: new Date().toISOString() });
+    salvarESincronizar();
+}
+
+// =========================
+// 4. EXCLUSÃO (BOTÕES E LIXEIRA)
+// =========================
+const btnExcluirUltimo = document.getElementById('btnExcluirUltimo');
+const btnExcluirTodos = document.getElementById('btnExcluirTodos');
+
+if (btnExcluirUltimo) {
+    btnExcluirUltimo.onclick = () => {
+        if (gastos.length > 0 && confirm("Excluir o último gasto?")) {
+            gastos.pop();
+            salvarESincronizar();
+        }
+    };
+}
+
+if (btnExcluirTodos) {
+    btnExcluirTodos.onclick = () => {
+        if (gastos.length > 0 && confirm("Apagar toda a lista?")) {
+            gastos = [];
+            salvarESincronizar();
+        }
+    };
+}
+
+// Lixeira individual (Global para o HTML achar)
+window.excluirGastoUnico = function(index) {
+    if (confirm("Deseja excluir este item?")) {
+        gastos.splice(index, 1);
+        salvarESincronizar();
+    }
+};
+
+// =========================
+// 5. RENDERIZAÇÃO E SALDOS
 // =========================
 function renderizarGastos() {
-  listaGastos.innerHTML = '';
+    const lista = document.getElementById('listaGastos');
+    if (!lista) return;
 
-  for (let i = gastos.length - 1; i >= 0; i--) {
-    const g = gastos[i];
-    const li = document.createElement('li');
-    li.innerHTML = `<span>${g.descricao} — ${formatarMoeda(g.valor)}</span>`;
-    listaGastos.appendChild(li);
-  }
+    lista.innerHTML = '';
+    [...gastos].reverse().forEach((g, i) => {
+        const indexReal = gastos.length - 1 - i;
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <span>${g.descricao} — ${formatarMoeda(g.valor)}</span>
+            <button class="btn-deletar-item" onclick="excluirGastoUnico(${indexReal})">🗑️</button>
+        `;
+        lista.appendChild(li);
+    });
 }
 
-// =========================
-// SALDOS
-// =========================
 function atualizarTudo() {
-  const totalGastos = gastos.reduce((a, g) => a + g.valor, 0);
-  const caixinhas = JSON.parse(localStorage.getItem('caixinhas')) || [];
-  const totalCaixinhas = caixinhas.reduce((a, c) => a + Number(c.valor || 0), 0);
+    saldoTotal = Number(localStorage.getItem('saldoTotal')) || 0;
+    const totalGastos = gastos.reduce((a, g) => a + g.valor, 0);
+    const caixinhas = JSON.parse(localStorage.getItem('caixinhas')) || [];
+    const totalCaixinhas = caixinhas.reduce((a, c) => a + Number(c.valor || 0), 0);
 
-  const saldoDisponivel = saldoTotal - totalGastos;
-  const saldoLivre = saldoDisponivel - totalCaixinhas;
+    const saldoDisponivel = saldoTotal - totalGastos;
+    const saldoLivre = saldoDisponivel - totalCaixinhas;
 
-  saldoDisplay.textContent = formatarMoeda(saldoDisponivel);
-  saldoInicialEl.textContent = formatarMoeda(saldoTotal);
-  totalGastosEl.textContent = formatarMoeda(totalGastos);
-  totalCaixinhasEl.textContent = formatarMoeda(totalCaixinhas);
-  saldoLivreEl.textContent = formatarMoeda(saldoLivre);
+    document.getElementById('saldoDisponivel').textContent = formatarMoeda(saldoDisponivel);
+    document.getElementById('saldoInicial').textContent = formatarMoeda(saldoTotal);
+    document.getElementById('totalGastos').textContent = formatarMoeda(totalGastos);
+    document.getElementById('totalCaixinhas').textContent = formatarMoeda(totalCaixinhas);
+    
+    const elLivre = document.getElementById('saldoLivre');
+    if (elLivre) {
+        elLivre.textContent = formatarMoeda(saldoLivre);
+        elLivre.classList.remove('positivo', 'negativo');
+        elLivre.classList.add(saldoLivre >= 0 ? 'positivo' : 'negativo');
+    }
 }
 
-// =========================
-// SALVAR
-// =========================
-function salvar() {
-  localStorage.setItem('gastos', JSON.stringify(gastos));
-  localStorage.setItem('saldoTotal', saldoTotal);
+function salvarESincronizar() {
+    localStorage.setItem('gastos', JSON.stringify(gastos));
+    renderizarGastos();
+    atualizarTudo();
 }
 
 function formatarMoeda(v) {
-  return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
+
+// Exporta para o saldo.js
+window.atualizarTudo = atualizarTudo;
